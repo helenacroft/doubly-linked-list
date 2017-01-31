@@ -75,7 +75,7 @@ class LinkedList {
     swap(a, b) {
         var temp = a;
         a = b;
-        b = a;
+        b = temp;
     }
 
     reverse() {
