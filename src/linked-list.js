@@ -79,14 +79,10 @@ class LinkedList {
     }
 
     reverse() {
-        var temp = this._head;
-        this.head(this._tail);
-        this.tail(temp);
+        this.swap(this._head, this._tail);       
         var currentElem = this._head;
         for(var i = 0; i < this.length; i++) {
-            temp = currentElem.next;
-            currentElem.next = currentElem.prev;
-            currentElem.prev = temp;
+            this.swap(currentElem.next, currentElem.prev); 
             currentElem = currentElem.next;
         } 
     }
