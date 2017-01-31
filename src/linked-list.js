@@ -72,6 +72,11 @@ class LinkedList {
         node2.prev = node1;
         this.length--;
     }
+    swap(a, b) {
+        var temp = a;
+        a = b;
+        b = a;
+    }
 
     reverse() {
         var temp = this._head;
