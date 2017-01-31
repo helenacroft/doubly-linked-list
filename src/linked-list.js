@@ -53,9 +53,16 @@ class LinkedList {
         currentElem.data = data;
     }
 
-    isEmpty() {}
+    isEmpty() {
+        return this.length ? false : true; 
+    }
 
-    clear() {}
+    clear() {
+        this.tail(null);
+        this.head(null);
+        this.length = 0;
+        return this;
+    }
 
     deleteAt(index) {
         var delElem =  this.findNode(index);
@@ -66,9 +73,27 @@ class LinkedList {
         this.length--;
     }
 
-    reverse() {}
+    reverse() {
+        var temp = this._head;
+        this.head(this._tail);
+        this.tail(temp);
+        var currentElem = this._head;
+        for(var i = 0; i < this.length; i++) {
+            temp = currentElem.next;
+            currentElem.next = currentElem.prev;
+            currentElem.prev = temp;
+            currentElem = currentElem.next;
+        } 
+    }
 
-    indexOf(data) {}
+    indexOf(data) {
+        var currentElem = this._head;
+        for(var i = 0; i < this.length; i++) {
+            if(currentElem.data == data) return i;
+            currentElem = currentElem.next;
+        }
+        return -1;
+    }
 }
 
 module.exports = LinkedList;
