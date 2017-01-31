@@ -36,15 +36,35 @@ class LinkedList {
         }
     }
 
-    at(index) {}
+    findNode(index) {
+        var currentElem = this._head;
+        for(var i = 0; i < index; i++) {
+            currentElem = currentElem.next;
+        }
+        return currentElem;
+    }
 
-    insertAt(index, data) {}
+    at(index) {
+        return this.findNode(index).data;
+    }
+
+    insertAt(index, data) {
+        var currentElem = this.findNode(index);
+        currentElem.data = data;
+    }
 
     isEmpty() {}
 
     clear() {}
 
-    deleteAt(index) {}
+    deleteAt(index) {
+        var delElem =  this.findNode(index);
+        var node1 = delElem.prev;
+        var node2 = delElem.next;
+        node1.next = node2;
+        node2.prev = node1;
+        this.length--;
+    }
 
     reverse() {}
 
