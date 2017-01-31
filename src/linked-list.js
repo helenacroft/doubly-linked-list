@@ -18,6 +18,7 @@ class LinkedList {
             this.tail(node);
         }
         this.length++; 
+        return this;
     }
 
     head() {
@@ -32,7 +33,7 @@ class LinkedList {
         if(arguments.length) {
             this._tail = arguments[0];
         } else {
-            return this.tail ? this._tail.data : null;
+            return this._tail ? this._tail.data : null;
         }
     }
 
@@ -49,8 +50,11 @@ class LinkedList {
     }
 
     insertAt(index, data) {
-        var currentElem = this.findNode(index);
-        currentElem.data = data;
+        if(this.length){
+            var currentElem = this.findNode(index);
+            currentElem.data = data;
+            return this;
+        } else return this;
     }
 
     isEmpty() {
@@ -58,19 +62,26 @@ class LinkedList {
     }
 
     clear() {
-        this.tail(null);
-        this.head(null);
+        this._tail = null;
+        this._head = null;
         this.length = 0;
         return this;
     }
 
     deleteAt(index) {
-        var delElem =  this.findNode(index);
-        var node1 = delElem.prev;
-        var node2 = delElem.next;
-        node1.next = node2;
-        node2.prev = node1;
-        this.length--;
+        if(this.length>1) {
+            var delElem =  this.findNode(index);
+            var node1 = delElem.prev;
+            var node2 = delElem.next;
+            node1.next = node2;
+            node2.prev = node1;
+            this.length--;
+            return this;
+            
+        } else {
+            this.clear();
+            return this;
+        }
     }
     swap(a, b) {
         var temp = a;
@@ -79,12 +90,17 @@ class LinkedList {
     }
 
     reverse() {
-        this.swap(this._head, this._tail);       
+        var temp = this._head;
+        this.head(this._tail);
+        this.tail(temp);   
         var currentElem = this._head;
         for(var i = 0; i < this.length; i++) {
-            this.swap(currentElem.next, currentElem.prev); 
+            var temp = currentElem.next;
+            currentElem.next = currentElem.prev;
+            currentElem.prev = temp;
             currentElem = currentElem.next;
         } 
+        return this;
     }
 
     indexOf(data) {
